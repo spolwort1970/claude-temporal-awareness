@@ -38,7 +38,7 @@ Example for user-level setup:
         "hooks": [
           {
             "type": "command",
-            "command": "bash /path/to/claude-temporal-awareness-plugin/claude-code/timestamp.sh",
+            "command": "bash /path/to/claude-temporal-awareness/claude-code/timestamp.sh",
             "timeout": 5
           }
         ]
