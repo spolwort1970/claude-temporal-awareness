@@ -2,6 +2,7 @@
   "name": "temporal-awareness-mcp-server",
   "version": "1.0.0",
   "description": "MCP server that provides current time awareness to Claude",
+  "license": "MIT",
   "main": "index.js",
   "type": "module",
   "scripts": {

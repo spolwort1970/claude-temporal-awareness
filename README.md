@@ -159,3 +159,7 @@ Claude doesn't inherently know what time it is. This matters for:
 - Tracking elapsed time between messages
 - Resolving references like "earlier today" or "yesterday"
 - Conversations about scheduling and deadlines
+
+## License
+
+Released under the [MIT License](LICENSE). Copyright (c) 2026 Shane Polwort.
