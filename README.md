@@ -107,7 +107,7 @@ Restart Claude Code after registering. Use `claude mcp list` or the `/mcp` comma
 
 The fallback wrapper is a thin Node.js script that selects the Python or Node runtime automatically — no manual switching required.
 
-On startup it runs a pre-flight check (`python -c "import mcp"`). If Python and its dependencies are available, the Python server is used. If not, the Node server kicks in transparently. Claude sees a single `temporal-awareness` tool regardless of which runtime is active.
+On startup it runs a pre-flight check (`python -c "import mcp.server.fastmcp"`). If Python and its dependencies are available, the Python server is used. If not, the Node server kicks in transparently. Claude sees a single `temporal-awareness` tool regardless of which runtime is active.
 
 Stdin is buffered during the pre-flight so no MCP initialization messages are lost. The active runtime is logged to stderr on each startup:
 

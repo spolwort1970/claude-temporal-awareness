@@ -52,7 +52,7 @@ function startServer(command, args, label) {
 function checkPython() {
   return new Promise((resolve) => {
     // Verify both Python and the mcp package are available
-    const check = spawn("python", ["-c", "import mcp"], { stdio: "pipe" });
+    const check = spawn("python", ["-c", "import mcp.server.fastmcp"], { stdio: "pipe" });
 
     const timer = setTimeout(() => {
       check.kill();
