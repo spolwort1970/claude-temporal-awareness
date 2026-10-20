@@ -103,6 +103,46 @@ This writes the entry to `~/.claude.json` and makes it available no matter which
 
 Restart Claude Code after registering. Use `claude mcp list` or the `/mcp` command within Claude Code to verify the server is connected.
 
+#### Claude Desktop app
+
+The Desktop app has two tabs, and they're configured separately:
+
+- **Code tab** — runs Claude Code, so it picks up the user-scope MCP registration above *and* the Claude Code hook from `~/.claude/settings.json`. This gives you both passive timestamps on every message and on-demand time tools, so it's the recommended way to chat with temporal awareness in Desktop.
+- **Chat tab** — does not read `~/.claude.json` or run hooks. It only supports MCP servers, configured in `claude_desktop_config.json`.
+
+To add the server to the Chat tab, add an `mcpServers` entry to `claude_desktop_config.json` (keep any existing keys such as `preferences`):
+
+```json
+{
+  "mcpServers": {
+    "temporal-awareness": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": ["C:\\tools\\mcp-servers\\shared\\temporal-awareness\\fallback\\index.js"]
+    }
+  }
+}
+```
+
+Use the absolute path to `node.exe` — the Desktop app may not inherit an up-to-date `PATH`.
+
+The config file location depends on how Desktop was installed:
+
+| Install | Config path |
+| --- | --- |
+| Windows (standard installer) | `%APPDATA%\Claude\claude_desktop_config.json` |
+| Windows (Microsoft Store / MSIX) | `%LOCALAPPDATA%\Packages\Claude_<id>\LocalCache\Roaming\Claude\claude_desktop_config.json` |
+| macOS | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+
+On Windows, logs are in `%LOCALAPPDATA%\Claude\logs\` (`main.log`, `mcp*.log`).
+
+> **Gotcha:** Closing the Desktop window only minimizes it to the system tray — the config isn't re-read. Fully quit (right-click the tray icon → **Quit**, or end all Claude processes in Task Manager), then relaunch. Verify under **Settings → Developer** or the tools menu in a chat.
+
+The Chat tab can't inject timestamps passively. To get similar behavior, add a line like this under **Settings → Profile** (personal preferences) or a Project's instructions:
+
+> At the start of every response, call the `get_current_time` tool from temporal-awareness so you know the current date and time.
+
+> **Note:** On organization-managed accounts, an admin policy may disable local MCP servers in Desktop. If **Settings → Developer** is missing or locked, check with your admin.
+
 #### Fallback wrapper (`mcp-server/fallback/`)
 
 The fallback wrapper is a thin Node.js script that selects the Python or Node runtime automatically — no manual switching required.
